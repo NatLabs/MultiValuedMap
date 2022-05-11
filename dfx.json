@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "dfx": "0.8.4",
+  "dfx": "0.9.3",
   "canisters": {
     "MultiValueMap": {
       "type": "motoko",
@@ -8,17 +8,13 @@
     },
     "MultiValueMap_assets": {
       "type": "assets",
-      "source": [
-        "src/MultiValueMap_assets/assets"
-      ],
-      "dependencies": [
-        "MultiValueMap"
-      ]
+      "source": ["src/MultiValueMap_assets/assets"],
+      "dependencies": ["MultiValueMap"]
     }
   },
   "defaults": {
     "build": {
-      "packtool": "",
+      "packtool": "vessel sources",
       "args": ""
     }
   },

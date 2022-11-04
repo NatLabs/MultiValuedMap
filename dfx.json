@@ -1,27 +1,27 @@
 {
-  "version": 1,
-  "dfx": "0.9.3",
-  "canisters": {
-    "MultiValueMap": {
-      "type": "motoko",
-      "main": "src/MultiValueMap/main.mo"
+    "version": 1,
+    "dfx": "0.9.3",
+    "canisters": {
+        "MultiValuedMap": {
+            "type": "motoko",
+            "main": "src/MultiValuedMap/main.mo"
+        },
+        "MultiValuedMap_assets": {
+            "type": "assets",
+            "source": ["src/MultiValuedMap_assets/assets"],
+            "dependencies": ["MultiValuedMap"]
+        }
     },
-    "MultiValueMap_assets": {
-      "type": "assets",
-      "source": ["src/MultiValueMap_assets/assets"],
-      "dependencies": ["MultiValueMap"]
+    "defaults": {
+        "build": {
+            "packtool": "vessel sources",
+            "args": ""
+        }
+    },
+    "networks": {
+        "local": {
+            "bind": "127.0.0.1:8000",
+            "type": "ephemeral"
+        }
     }
-  },
-  "defaults": {
-    "build": {
-      "packtool": "vessel sources",
-      "args": ""
-    }
-  },
-  "networks": {
-    "local": {
-      "bind": "127.0.0.1:8000",
-      "type": "ephemeral"
-    }
-  }
 }

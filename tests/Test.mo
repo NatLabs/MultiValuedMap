@@ -6,44 +6,75 @@ import ActorSpec "./utils/ActorSpec";
 import MVMap "../src";
 
 let {
-    assertTrue; assertFalse; assertAllTrue; describe; it; skip; pending; run
+    assertTrue;
+    assertFalse;
+    assertAllTrue;
+    describe;
+    it;
+    skip;
+    pending;
+    run;
 } = ActorSpec;
 
 let success = run([
-    describe("Ordered MultiValueMap fns", [
-        it("add()", do {
-            let mvMap = MVMap.MultiValueMap<Text, Text>(Text.equal, Text.hash);
-            mvMap.add("key", "val1");
-            mvMap.add("key", "val2");
-            mvMap.add("key", "val3");
+    describe(
+        "Ordered MultiValuedMap fns",
+        [
+            it(
+                "add()",
+                do {
+                    let mvMap = MVMap.MultiValuedMap<Text, Text>(Text.equal, Text.hash);
+                    mvMap.add("key", "val1");
+                    mvMap.add("key", "val2");
+                    mvMap.add("key", "val3");
 
-            let entries = Iter.toArray(mvMap.entries());
+                    let entries = Iter.toArray(mvMap.entries());
 
-            assertTrue( 
-                entries == [("key", ["val1", "val2", "val3"])]
-            );
-        }),
-        
-        it("removeAll()", do {
-            let mvMap = MVMap.MultiValueMap<Text, Text>(Text.equal, Text.hash);
-            mvMap.add("key", "val1");
-            mvMap.add("key", "val2");
-            mvMap.add("key", "val3");
+                    assertTrue(
+                        entries == [("key", ["val1", "val2", "val3"])],
+                    );
+                },
+            ),
 
-            let prevEntries =  mvMap.removeAll();
+            it(
+                "addFirst()",
+                do {
+                    let mvMap = MVMap.MultiValuedMap<Text, Text>(Text.equal, Text.hash);
+                    mvMap.addFirst("key", "val1");
+                    mvMap.addFirst("key", "val2");
+                    mvMap.addFirst("key", "val3");
 
-            let entries = Iter.toArray(mvMap.entries());
+                    let entries = Iter.toArray(mvMap.entries());
 
-            assertAllTrue([
-                prevEntries.size() > 0,
-                entries == []
-            ]);
-        })
-    ])
+                    assertTrue(
+                        entries == [("key", ["val3", "val2", "val1"])],
+                    );
+                },
+            ),
+
+            it(
+                "clear()",
+                do {
+                    let mvMap = MVMap.MultiValuedMap<Text, Text>(Text.equal, Text.hash);
+                    mvMap.add("key", "val1");
+                    mvMap.add("key", "val2");
+                    mvMap.add("key", "val3");
+
+                    mvMap.clear();
+
+                    let entries = Iter.toArray(mvMap.entries());
+
+                    assertAllTrue([
+                        entries == [],
+                    ]);
+                },
+            ),
+        ],
+    ),
 ]);
 
-if(success == false){
-  Debug.trap("Tests failed");
-}else{
+if (success == false) {
+    Debug.trap("Tests failed");
+} else {
     Debug.print("\1b[23;45;64m Success!");
-}
+};
